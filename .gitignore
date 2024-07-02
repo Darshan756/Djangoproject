@@ -55,7 +55,6 @@ coverage.xml
 *.log
 local_settings.py
 db.sqlite3
-media/
 
 # Flask stuff:
 instance/
@@ -123,7 +122,7 @@ dmypy.json
 # Vim swap files
 *.swp
 
-# Your project specific ignores
+# Ignore the following directories for the blog project
 first_django/__pycache__/
 blog/__pycache__/
 user/__pycache__/
@@ -131,8 +130,6 @@ first_django/*.pyc
 blog/*.pyc
 user/*.pyc
 
-# The media directory, where user-uploaded files are stored
-media/
-
-# Ignore staticfiles if you are using Django's collectstatic command
-staticfiles/
+# Comment out or remove these lines to include media and static files
+# media/
+# staticfiles/
