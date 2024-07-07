@@ -9,6 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from selenium.common.exceptions import TimeoutException
+import time
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'first_django.settings'
 django.setup()
@@ -32,14 +33,15 @@ class UserRegistrationTest(LiveServerTestCase):
 
     def test_user_registration_form(self):
         test_data = [
-            {'username': 'testuser4', 'email': 'testuser1@example.com', 'password': 'DJSRT@1234'},
-            {'username': 'testuser5', 'email': 'testuser2@example.com', 'password': 'DJSRT@1235'},
-            {'username': 'testuser6', 'email': 'testuser3@example.com', 'password': 'DJSRT'},
+            {'username': 'testuser17', 'email': 'testuser1@example.com', 'password': 'DJSRT@1234'},
+            {'username': 'testuser18', 'email': 'testuser2@example.com', 'password': 'DJSRT@1235'},
+            {'username': 'testuser19', 'email': 'testuser3@example.com', 'password': 'DJSRT@123567'},
         ]
 
         for data in test_data:
             with self.subTest(data=data):
                 self.browser.get(self.live_server_url + reverse('register'))
+                #time.sleep(2)  # Pause for 2 seconds
 
                 # Log the current URL before form submission
                 logging.info(f"Current URL: {self.browser.current_url}")
@@ -49,6 +51,8 @@ class UserRegistrationTest(LiveServerTestCase):
                 self.browser.find_element(By.NAME, 'email').send_keys(data['email'])
                 self.browser.find_element(By.NAME, 'password1').send_keys(data['password'])
                 self.browser.find_element(By.NAME, 'password2').send_keys(data['password'])
+
+                time.sleep(2)  # Pause for 2 seconds before clicking the submit button
 
                 submit_button = self.browser.find_element(By.XPATH, "//button[@type='submit']")
                 submit_button.click()
@@ -62,6 +66,7 @@ class UserRegistrationTest(LiveServerTestCase):
                     raise
 
                 logging.info(f"Current URL after submit: {self.browser.current_url}")
+                time.sleep(2)
 
                 self.assertIn(reverse('login'), self.browser.current_url)
 
